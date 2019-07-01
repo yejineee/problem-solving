@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 using namespace std ;
 
 int RH, RV, SH, SV , N  ;
@@ -7,7 +8,7 @@ void comp_min(int p){
   if(min_p == 0){
     min_p = p ;
   }
-  else (p < min_p) ? min_p = p : min_p = min_p ; 
+  else min_p = min(p, min_p) ; 
 }
 
 void solution(int m[][5+1], int rh, int rv, int sh, int sv){
@@ -21,18 +22,18 @@ void solution(int m[][5+1], int rh, int rv, int sh, int sv){
     }
     if(SH / m[i][sh]){
       if(SH % m[i][sh] == 0){
-        if(SH / m[i][sh] > hor) hor = SH / m[i][sh] ;
+        hor = max(hor, SH / m[i][sh]) ;
       }
       else{
-        if(SH / m[i][sh] + 1 > hor) hor = SH / m[i][sh] + 1 ;
+        hor = max(hor,SH / m[i][sh] + 1) ; 
       }
     }
     if(SV / m[i][sv]){
       if(SV % m[i][sv] == 0){
-        if(SV / m[i][sv] > ver) ver = SV / m[i][sv] ;
+        ver = max(ver, SV / m[i][sv]) ; 
       }
       else{
-        if(SV / m[i][sv] + 1 > ver) ver = SV / m[i][sv] + 1 ;
+        ver = max(ver, SV / m[i][sv] + 1) ; 
       }
     }
     comp_min(hor*ver*m[i][5]) ;
