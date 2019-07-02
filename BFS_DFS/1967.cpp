@@ -24,12 +24,7 @@ void compute_weight(int n){
   }
   MAX_D = max(MAX_D, NODE_D[EDGE[n].first]) ; 
 }
-void solution(){
-  for(int i = N ; i > 1 ; i--){
-    compute_weight(i) ; 
-  }
-  printf("%d\n", MAX_D) ; 
-}
+
 int main(){
   int p, c, w ; 
   scanf("%d", &N) ; 
@@ -38,6 +33,9 @@ int main(){
     scanf("%d %d %d", &p, &c, &w) ; 
     EDGE[c] = make_pair(p, w) ; 
   }
-  solution() ; 
+  for(int i = N ; i > 1 ; i--){
+    compute_weight(i) ; 
+  }
+  printf("%d\n", MAX_D) ; 
   return 0 ;
 }
