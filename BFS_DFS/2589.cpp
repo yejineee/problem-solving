@@ -17,31 +17,31 @@ int max_len ;
 
 void
 go () {
-  int num ;
+  int num = 0;
   while(Q.size()){
     int y = Q.front().first ;
     int x = Q.front().second ;
     num = _map[y][x] ;
     Q.pop_front() ;
 
-    if(x < X && map[y][x+1] != 'W' && (_map[y][x+1] == U || _map[y][x+1] > num+1)){ // RIGHT
+    if(x < X && map[y][x+1] != 'W' && _map[y][x+1] == U ){ // RIGHT
       _map[y][x+1] = num+1 ;
       Q.push_back(make_pair(y,x+1)) ;
     }
-    if(x > 1 && map[y][x-1] != 'W' && (_map[y][x-1] == U || _map[y][x-1] > num+1)){ // LEFT
+    if(x > 1 && map[y][x-1] != 'W' && _map[y][x-1] == U ){ // LEFT
       _map[y][x-1] = num+1 ;
       Q.push_back(make_pair(y,x-1)) ;
     }
-    if(y > 1 && map[y-1][x] != 'W' && (_map[y-1][x] == U || _map[y-1][x] > num+1)){ // UP
+    if(y > 1 && map[y-1][x] != 'W' && _map[y-1][x] == U ){ // UP
       _map[y-1][x] = num+1 ;
       Q.push_back(make_pair(y-1,x)) ;
     }
-    if(y < Y && map[y+1][x] != 'W' && (_map[y+1][x] == U || _map[y+1][x] > num+1)){ // DOWN
+    if(y < Y && map[y+1][x] != 'W' && _map[y+1][x] == U){ // DOWN
       _map[y+1][x] = num+1 ;
       Q.push_back(make_pair(y+1,x)) ;
     }
     
-    max_len = max(max_len, _map[y][x]) ;
+    max_len = max(max_len, num) ;
   }
 }
 
