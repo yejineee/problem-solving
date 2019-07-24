@@ -29,8 +29,7 @@ divide (int r, int c, int len, int sum){
     r -= half_len ;
     c -= half_len ;
   }
-  sum = divide(r, c, half_len, sum) ;
-  return sum;
+  return divide(r, c, half_len, sum) ;
 }
 
 int 
