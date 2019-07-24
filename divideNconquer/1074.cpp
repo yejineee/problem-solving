@@ -7,7 +7,7 @@ int N, R, C ;
 
 int 
 divide (int r, int c, int len){
-  if(len < 1) return 0 ;
+  if(len <= 1) return 0 ;
   
   int half_len = len / 2 ;
   if( r < half_len && c < half_len){     // 1
