@@ -9,20 +9,12 @@ using namespace std ;
 set <string> visit ;
 queue <pair<string, int> > Q ;
 int move = -1 ;
-typedef enum {
-  UP = -3 ,
-  LEFT = -1 ,
-  RIGHT = 1 ,
-  DOWN = 3
-}DIRECTION ;
+typedef struct{
+  int y, x;
+}DIR ;
 
-string next_string (string s, DIRECTION dir){
-  int loc = s.find("0") ;
-  char tmp = s[loc] ;
-  s[loc] = s[loc+dir] ;
-  s[loc+dir] = tmp ;
-  return s ;
-}
+DIR next_dir[4] = {{1,0} , {-1,0}, {0,1}, {0,-1}} ;
+
 int solution (string in, int n){
   string s, next ;
   int num , loc ;
@@ -35,32 +27,18 @@ int solution (string in, int n){
       return num ;
     }
     loc = s.find("0") ;
-    if(loc%3 != 0){           // left
-      next = next_string(s,LEFT) ;
-      if(visit.find(next) == visit.end()){
-        visit.insert(next) ;
-        Q.push(make_pair(next, num+1)) ;
-      }
-    }
-    if(loc%3 != 2){           // right
-      next = next_string(s,RIGHT) ;
-      if(visit.find(next) == visit.end()){
-        visit.insert(next) ;
-        Q.push(make_pair(next, num+1)) ;
-      }
-    }
-    if(loc >= 3){           // up
-      next = next_string(s,UP) ;
-      if(visit.find(next) == visit.end()){
-        visit.insert(next) ;
-        Q.push(make_pair(next, num+1)) ;
-      }
-    }
-    if(loc <= 5){           // down
-      next = next_string(s,DOWN) ;
-      if(visit.find(next) == visit.end()){
-        visit.insert(next) ;
-        Q.push(make_pair(next, num+1)) ;
+    int y = loc / 3 ;
+    int x = loc % 3 ;
+    for(int i = 0 ;  i < 4 ; i++){
+      int next_y = y + next_dir[i].y ;
+      int next_x = x + next_dir[i].x ;
+      if(next_y >= 0 && next_y < 3 && next_x >= 0 && next_x < 3){
+        string temp = s ;
+        swap(temp[loc], temp[3*next_y + next_x]) ;
+        if(visit.find(temp) ==  visit.end()){
+          visit.insert(temp) ;
+          Q.push(make_pair(temp, num+1)) ;
+        }
       }
     }
   }
