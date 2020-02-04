@@ -7,41 +7,37 @@ using namespace std ;
 const int MAX_LEN = 1000 ; 
 int box[MAX_LEN+1][MAX_LEN+1] ; 
 int row, col ; 
-list<pair<int, int> > ripen, new_ripen ; 
+int n_unripen = 0 ; 
+list<pair<int, int> > ripen ; 
 int dir[4][2] = {{-1,0}, {1,0}, {0,-1}, {0,1}} ; 
-
-bool check_all_ripen(){
-  for(int r = 1 ; r <= row ; r++){
-    for(int c = 1 ; c <= col ; c++){
-      if(box[r][c] == 0){
-        return false ; 
-      }
-    }
-  }
-  return true ; 
-}
 
 int find_min_days(){
   int days = 0 ;
-  while(check_all_ripen() == false){
+  if(n_unripen == 0){
+    return 0 ; 
+  }
+  while(!ripen.empty() && n_unripen != 0){
     days += 1 ; 
-    if(days >= col*row) return -1 ; 
-    for(list<pair<int, int> >::iterator it = ripen.begin() ; it != ripen.end() ; it++){
-      int r = (*it).first ;
-      int c = (*it).second ; 
+    int n_ripen = ripen.size() ; 
+    for(int n = 0 ; n < n_ripen; n++){
+      int r = ripen.front().first ;
+      int c = ripen.front().second ; 
+      ripen.pop_front() ; 
       for(int i = 0 ; i < 4 ; i++){
         int next_r = r+dir[i][0] ; 
         int next_c = c+dir[i][1] ; 
         if( 1 <= next_r && next_r <= row && 1 <= next_c && next_c <= col){
           if(box[next_r][next_c] == 0){
             box[next_r][next_c] = 1 ; 
-            new_ripen.push_back(make_pair(next_r, next_c)) ; 
+            n_unripen -= 1 ; 
+            ripen.push_back(make_pair(next_r, next_c)) ; 
           }
         }
       }
     }
-    ripen.swap(new_ripen) ; 
-    new_ripen.clear() ; 
+  }
+  if(n_unripen != 0){
+    return -1 ; 
   }
   return days ; 
 }
@@ -54,6 +50,9 @@ int main(){
       scanf("%d" , &status) ; 
       if(status == 1){
         ripen.push_back(make_pair(r,c)) ; 
+      }
+      else if(status == 0){
+        n_unripen += 1 ; 
       }
       box[r][c] = status ; 
     }
