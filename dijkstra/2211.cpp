@@ -11,7 +11,6 @@ int t_time[MAX_N+1] ;
 int connect[MAX_N+1] ; 
 
 void find_min_time(){
-  vector<bool> visit (n_computer+1, 0) ; 
   priority_queue<pair<int, int > > pq ; 
   fill(t_time+1, t_time+n_computer+1, INT_MAX) ; 
   t_time[1] = 0 ;
@@ -23,11 +22,9 @@ void find_min_time(){
     pq.pop() ; 
     if(t_time[here] < here_time) continue ; 
 
-    visit[here] = true ; 
     for(int i = 0 ; i < adj_list[here].size() ; i++){
       int there = adj_list[here][i].first ; 
       int there_time = adj_list[here][i].second ; 
-      if(visit[there]) continue ; 
       if(t_time[there] > here_time + there_time){
         t_time[there] = here_time + there_time ; 
         connect[there] = here ; 
