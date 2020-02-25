@@ -74,10 +74,6 @@ int main(){
       puts("YES") ;
     }
     else puts("NO") ;
-    // puts("==================") ;  
-    // for(int i = 1 ; i <= n_branch ; i++){
-    //   printf("%d] %d\n", i, dist[i]) ; 
-    // }
   }
   return 0 ;
 }
