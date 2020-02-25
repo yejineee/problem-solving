@@ -11,39 +11,28 @@ int n_branch ;
 
 bool is_time_back(vector<pair<int, int> > road[MAX+1], int start){
   vector<pair<int, int> >::iterator it ; 
-
+  bool relax ;
   for(int i = 1 ; i <= n_branch ; i++){
-    dist[i] = INT_MAX ; 
+    dist[i] = 1000000000 ; 
   }
   dist[start] = 0 ; 
 
-  for(int i = 1 ; i <= n_branch-1 ; i++){
-    bool relax = false ; 
+  for(int i = 1 ; i <= n_branch ; i++){
+    relax = false ; 
     for(int u = 1 ; u <= n_branch ; u++){
       for(it = road[u].begin() ; it != road[u].end() ; it++){
         int v = (*it).first ; 
         int time = (*it).second ; 
-        if(dist[u] != INT_MAX && dist[v] > dist[u] + time){
+        if(dist[v] > dist[u] + time){
           dist[v] = dist[u] + time ; 
           relax = true ; 
         }
-
       }
     }
     if(!relax) return false ; 
   }
 
-  for(int u = 1 ; u <= n_branch ; u++){
-    for(it = road[u].begin() ; it != road[u].end() ; it++){
-      int v = (*it).first ; 
-      int time = (*it).second ;
-      if(dist[u] != INT_MAX && dist[v] > dist[u] + time){
-        return true ; 
-      }
-    }
-  }
-
-  return false ; 
+  return relax ; 
 }
 
 int main(){
@@ -51,7 +40,6 @@ int main(){
   scanf("%d", &T) ; 
   while(T--){
     vector<pair<int, int> > road[MAX+1] ;
-    bool backward = false ; 
     scanf("%d %d %d", &n_branch, &n_road, &wormhole) ; 
     for(int i = 0 ; i < n_road ; i++){
       int u, v, time ; 
@@ -64,15 +52,8 @@ int main(){
       scanf("%d %d %d", &u, &v, &time) ; 
       road[u].push_back(make_pair(v, -1 * time)) ; 
     }
-    for(int s = 1 ; s <= n_branch ; s++){
-      if(is_time_back(road, s)){
-        backward = true ; 
-        break ; 
-      }
-    }
-    if(backward){
+    if(is_time_back(road, 1))
       puts("YES") ;
-    }
     else puts("NO") ;
   }
   return 0 ;
