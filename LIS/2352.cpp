@@ -6,7 +6,7 @@ vector<int> port_to_port ;
 vector<int> link ;
 
 int lower_bound_idx(int port){
-  int start = 0, end = link.size()-1, mid = (start+end) / 2 ; 
+  int start = 0, end = link.size(), mid = (start+end) / 2 ; 
 
   while(start < end){
     mid = (start+end) / 2 ;
@@ -30,17 +30,13 @@ int main(){
   }
 
   for(const auto& p : port_to_port){
-    if(link.empty()){
+    int i = lower_bound_idx(p) ;
+    if(i == link.size()){
       link.push_back(p) ;
     }
-      else if(link.back() >= p){
-          int i = lower_bound_idx(p) ;
-          link[i] = p ;
-      }
-      else{
-          link.push_back(p);
-      }
-      
+    else{
+      link[i] = p ;
+    }
   }
 
   printf("%lu\n", link.size()) ;
