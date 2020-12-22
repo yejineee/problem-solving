@@ -3,6 +3,7 @@
 using namespace std;
 
 vector<int> basket;
+const int EMPTY = 0;
 int nLine;
 int nPopped;
 
@@ -18,11 +19,11 @@ void pushOrPopToBasket(vector<vector<int>> board, int toy){
 
 void moveAndPopToy(int column, vector<vector<int>> &board){
   for(int r = 0; r < nLine; r++){
-    if(board[r][column] == 0){
+    if(board[r][column] == EMPTY){
       continue;
     }
     pushOrPopToBasket(board, board[r][column]);
-    board[r][column] = 0;
+    board[r][column] = EMPTY;
     break;
   }
 }
