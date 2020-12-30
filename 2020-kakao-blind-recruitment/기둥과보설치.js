@@ -109,7 +109,7 @@ const getFinalFrame = (wall, n) => {
 };
 
 function solution(n, build_frame) {
-  let wall = getInitialWall(n);
+  const wall = getInitialWall(n);
 
   for (const [x, y, type, action] of build_frame) {
     if (type === PILLAR) {
