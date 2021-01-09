@@ -17,7 +17,8 @@ const getPriorityList = (expression) => {
   return priorityList;
 };
 
-const evalExpression = (priority, expression) => {
+const evalExpression = (priority, exp) => {
+  let expression = [...exp];
   for (const op of priority) {
     while (expression.indexOf(op) !== -1) {
       const opIdx = expression.indexOf(op);
