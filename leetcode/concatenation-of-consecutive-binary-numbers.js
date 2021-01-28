@@ -8,5 +8,3 @@ var concatenatedBinary = function (n) {
   }, 0);
   return result;
 };
-
-console.log(concatenatedBinary(11));
